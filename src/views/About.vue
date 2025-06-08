@@ -174,6 +174,14 @@
               </p>
             </div>
           </div>
+          <div class="flex items-center justify-center">
+            <button
+              class="border border-blue-400 rounded-lg px-3 py-2 cta-button magnetic-element"
+              @click="goToPersonal"
+            >
+              See my personal
+            </button>
+          </div>
         </div>
 
         <div class="space-y-8">
@@ -342,6 +350,11 @@
 <script setup lang="ts">
 import { ref, onMounted, nextTick, reactive } from "vue";
 import { yearsFromDate } from "../utils/getYears";
+import { useRouter } from "vue-router";
+const router = useRouter();
+const goToPersonal = () => {
+  return router.push("/personal");
+};
 const aboutSection = ref<HTMLElement>();
 const sectionHeader = ref<HTMLElement>();
 const mainText = ref<HTMLElement>();
