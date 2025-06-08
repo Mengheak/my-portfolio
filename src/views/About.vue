@@ -341,7 +341,7 @@
 
 <script setup lang="ts">
 import { ref, onMounted, nextTick, reactive } from "vue";
-
+import { yearsFromDate } from "../utils/getYears";
 const aboutSection = ref<HTMLElement>();
 const sectionHeader = ref<HTMLElement>();
 const mainText = ref<HTMLElement>();
@@ -408,8 +408,16 @@ const skills = [
 ];
 
 const stats = [
-  { value: "3+", label: "Years Experience", color: "text-blue-400" },
-  { value: "50+", label: "Projects Built", color: "text-green-400" },
+  {
+    value: `${
+      yearsFromDate(new Date("2024-12-30")) == 0
+        ? yearsFromDate(new Date("2024-12-30")) + 1
+        : yearsFromDate(new Date("2024-12-30"))
+    }+`,
+    label: "Years Experience",
+    color: "text-blue-400",
+  },
+  { value: "10+", label: "Projects Built", color: "text-green-400" },
   { value: "∞", label: "Learning Always", color: "text-blue-400" },
 ];
 
