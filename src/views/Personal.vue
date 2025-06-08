@@ -51,7 +51,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, defineComponent } from "vue";
+import { ref } from "vue";
 import Titles from "../components/Titles.vue";
 import InterestCard from "../components/InterestCard.vue";
 
