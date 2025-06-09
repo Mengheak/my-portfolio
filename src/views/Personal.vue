@@ -1,9 +1,9 @@
 <template>
   <section
     class="min-h-screen relative overflow-hidden bg-gradient-to-br from-black via-gray-900 to-black p-8"
+    :style="{ transform: `translateY(${parallaxOffset}px)` }"
   >
     <Titles title="Personal Interests" />
-
     <!-- Falling bars -->
     <div
       v-for="bar in bars"
@@ -21,7 +21,6 @@
         class="w-0.5 h-8 bg-gradient-to-b from-blue-400 via-green-400/30 to-transparent opacity-60"
       ></div>
     </div>
-
     <!-- Personal Interest Cards -->
     <div
       class="relative grid grid-cols-1 sm:grid-cols-2 gap-8 max-w-4xl mx-auto mt-16"
@@ -49,12 +48,10 @@
     </div>
   </section>
 </template>
-
 <script setup lang="ts">
-import { ref } from "vue";
+import { onMounted, onUnmounted, ref } from "vue";
 import Titles from "../components/Titles.vue";
 import InterestCard from "../components/InterestCard.vue";
-
 const bars = ref(
   Array.from({ length: 30 }, (_, i) => ({
     id: i,
@@ -64,7 +61,6 @@ const bars = ref(
     duration: `${Math.random() * 2 + 1}s`,
   }))
 );
-
 function resetBar(id: number) {
   const bar = bars.value.find((b) => b.id === id);
   if (bar) {
@@ -74,8 +70,20 @@ function resetBar(id: number) {
     bar.duration = `${Math.random() * 2 + 1}s`;
   }
 }
-</script>
 
+const parallaxOffset = ref(0);
+
+function handleScroll() {
+  parallaxOffset.value = window.scrollY * 0.5; // Adjust speed multiplier as needed
+}
+
+onMounted(() => {
+  window.addEventListener("scroll", handleScroll);
+});
+onUnmounted(() => {
+  window.removeEventListener("scroll", handleScroll);
+});
+</script>
 <style scoped>
 @keyframes fall {
   0% {
@@ -90,7 +98,6 @@ function resetBar(id: number) {
   animation-timing-function: linear;
   animation-iteration-count: infinite;
 }
-
 .pulse-glow {
   animation: pulse 2s infinite;
   color: white;
